@@ -145,7 +145,7 @@ void matrix2vector_yuv( unsigned char** Y, unsigned char** U,unsigned char** V,u
 	}
 }
 
-void downsampling(unsigned char** Y, unsigned char** U, unsigned char** V, unsigned char* image_contents_yuv, unsigned char* image_contents_ds, int height, int width)
+void downsampling(unsigned char** Y, unsigned char** U, unsigned char** V, int height, int width)
 {
 	int j,k,ch;
 	unsigned char max;
@@ -303,8 +303,7 @@ int main(int argc, char const *argv[])
 	
 	vector2matrix(red,green,blue,image_contents_rgb,header2.height,header2.width); 		/* call to store image contents as matrix */
 	rgb2yuv(red,green,blue,Y,U,V,header2.height,header2.width); 						/* convert from RGB to YUV*/
-	//quantizer(Y,U,V,header2.height,header2.width);									/* Quantize the YUV values*/
-	downsampling(Y,U,V,image_contents_yuv,image_contents_ds,header2.height,header2.width);	
+	downsampling(Y,U,V,header2.height,header2.width);	
 	matrix2vector_yuv(Y,U,V,image_contents_yuv,header2.height,header2.width);			/* Store YUV into vector */								
 	yuv2rgb(red,green,blue,Y,U,V,header2.height,header2.width); 						/* convert back to RGB*/
 	matrix2vector_rgb(red,green,blue,image_contents_rgbt,header2.height,header2.width); /* convert back from matrix to vector*/
